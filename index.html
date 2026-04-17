@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,7 +8,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f5e6a3; }
+  body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #FFFFFF; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #191919; }
+  }
   #timeText {
     font-family: 'Libre Baskerville', serif;
     font-weight: 700;
@@ -27,10 +31,9 @@
 <div style="
   display:flex;flex-direction:column;align-items:center;gap:0px;
   padding:12px;
-  background:#f5e6a3;
-  border-radius:24px;
-  width:fit-content;
-">
+
+width:fit-content;
+“>
 
   <div style="
     width:190px;height:170px;
@@ -52,34 +55,35 @@
 const total=25*60;
 let remaining=total,running=false,timer=null,sessions=0;
 
-function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function fmt(s){return String(Math.floor(s/60)).padStart(2,‘0’)+’:’+String(s%60).padStart(2,‘0’)}
 
 function toggleTimer(){
-  if(running){clearInterval(timer);running=false;}
-  else{
-    if(remaining===0)remaining=total;
-    running=true;
-    timer=setInterval(()=>{
-      remaining--;
-      document.getElementById('timeText').textContent=fmt(remaining);
-      if(remaining<=0){clearInterval(timer);running=false;sessions++;updateDots();}
-    },1000);
-  }
+if(running){clearInterval(timer);running=false;}
+else{
+if(remaining===0)remaining=total;
+running=true;
+timer=setInterval(()=>{
+remaining–;
+document.getElementById(‘timeText’).textContent=fmt(remaining);
+if(remaining<=0){clearInterval(timer);running=false;sessions++;updateDots();}
+},1000);
+}
 }
 
 function resetTimer(){
-  clearInterval(timer);running=false;remaining=total;
-  document.getElementById('timeText').textContent=fmt(remaining);
+clearInterval(timer);running=false;remaining=total;
+document.getElementById(‘timeText’).textContent=fmt(remaining);
 }
 
 function updateDots(){
-  const d=document.getElementById('dots');d.innerHTML='';
-  for(let i=0;i<Math.min(sessions,8);i++){
-    const dot=document.createElement('div');
-    dot.style.cssText='width:5px;height:5px;border-radius:50%;background:#2d5a1b;';
-    d.appendChild(dot);
-  }
+const d=document.getElementById(‘dots’);d.innerHTML=’’;
+for(let i=0;i<Math.min(sessions,8);i++){
+const dot=document.createElement(‘div’);
+dot.style.cssText=‘width:5px;height:5px;border-radius:50%;background:#2d5a1b;’;
+d.appendChild(dot);
+}
 }
 </script>
+
 </body>
 </html>
